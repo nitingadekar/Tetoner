@@ -1,0 +1,2 @@
+this tis to test commit in git on my ec2 instance
+
