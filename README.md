@@ -1,2 +1,2 @@
 # Tetoner
-Automate the answer file editing
+Folowing a online tutorial to understand jenkins workflows
