@@ -1,3 +1,4 @@
 this tis to test commit in git on my ec2 instance
+alsdkfa;lskfa;lsdkgl
 this is to test auto build on git commit
 
