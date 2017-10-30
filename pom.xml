@@ -1,6 +1,6 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>Nitin</groupId>
+  <groupId>com.Nitin.Tetoner</groupId>
   <artifactId>Nitin-lab</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
