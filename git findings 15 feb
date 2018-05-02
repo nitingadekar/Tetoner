@@ -1,0 +1,233 @@
+https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git
+
+$ git clone
+
+will give you the whole repository.
+
+After the clone, you can list the tags with $ git tag -l and then checkout a specific tag:
+
+$ git checkout tags/<tag_name>
+
+Even better, checkout and create a branch (otherwise you will be on a branch named after the revision number of tag):
+
+$ git checkout tags/<tag_name> -b <branch_name>
+
+
+$ git clone -b UATv0.55_16-01-2018 https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git test
+
+
+
+
+current tag status
+UATv0.55_16-01-2018 
+###########################
+transition from 55 to 56
+##############################
+
+git checkout 56
+
+
+
+file  public/media-relations/wp-content/themes/lodha/tpt-mediakit.php
+
+line 44                        <div class="col-info">
+after built
+line 44                        <!-- <div class="col-info">
+
+
+line 52                       </div>
+after built
+line 52 						</div> -->
+
+
+ file  public/media-relations/wp-content/themes/lodha/tpt-press.php
+ 
+line 44                        <div class="col-info">
+after built
+line 44                        <!-- <div class="col-info">
+
+
+line 52                        </div>
+after built
+line 52 						</div> -->
+
+
+
+
+###################################################
+transition 56- 57
+###################################################
+
+public/media-relations/wp-content/themes/lodha/css/style.css
+
+line 604   #press-releases.press-section .sidebar .media-list ul li.cell{background:url(../images/email-icon.png) no-repeat 0 100%; background-size: 10%;}
+line 605   #press-releases.press-section .sidebar .media-list ul li.mail{background:url(../images/phone-icon.png) no-repeat 0 100%; background-size: 8%;}
+
+after buiilt
+
+line 604   #press-releases.press-section .sidebar .media-list ul li.cell{background:url(../images/phone-icon.png) no-repeat 0 100%; background-size: 10%;}
+line 605   #press-releases.press-section .sidebar .media-list ul li.mail{background:url(../images/email-icon.png) no-repeat 0 100%; background-size: 8%;}
+
+####################################################################
+transition 57 -58
+###################################################################
+resources/views/Lodha/admin/cluster/tabs.blade.php
+
+    51  +        <tr>
+    52  +            <td>9</td> 
+    53  +            <td>VIRTUAL TOUR</td>
+    54  +            <td><input type="text" name="tab[VIRTUALTOUR]" value="{{(isset($cTabs['VIRTUALTOUR']) && $cTabs['VIRTUALTOUR']!='')?$cTabs['VIRTUALTOUR']:''}}"></td>
+    55  +        </tr>
+51  56           <tr> 
+52      -            <td>8</td>  
+    57  +            <td>10</td> 
+
+
+after built #    $ git pull https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git --tag UATv0.58_18-01-2018
+ 
+
+ resources/views/Lodha/admin/project/tabs.blade.php
+ 
+57  	-            <td>9</td>
+	57  +            <td>10</td>
+
+
+62      -            <td>9</td>
+    62	+            <td>11</td>
+	
+######################################################################################
+transition  58-57
+
+
+
+yassss
+
+changes reverted to previous verison
+
+#####################################################################################
+
+transition 57-56
+
+changes reverted
+##############################################################################
+
+transition 56 - 59
+
+HEAD detached at UATv0.56_16-01-2018
+nothing to commit, working directory clean
+root@acc:/home/acc-06/Public/gitrepo# git pull https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git --tag UATv0.59_18-01-2018
+From https://github.com/ldhgrp-digtial/lodhagroup-ind
+ * tag               UATv0.59_18-01-2018 -> FETCH_HEAD
+Updating dc11a46..d2373d3
+Fast-forward
+ 59 tag public/assets/Lodha/Analytics/cookie.php                     | 9 ++++++++-
+ 57 tag public/media-relations/wp-content/themes/lodha/css/style.css | 4 ++--
+ 58 tag resources/views/Lodha/admin/cluster/tabs.blade.php           | 7 ++++++-
+ 58 tag resources/views/Lodha/admin/project/tabs.blade.php           | 4 ++--
+ 59 tag resources/views/Lodha/thankyou.blade.php                     | 4 ++--
+ 5 files changed, 20 insertions(+), 8 deletions(-)
+#########################################################################################
+CONCLUSION : Tags skipped in built will also be updated if the release contains the updated tags files in it.
+#########################################################################################
+transition 59 - 60
+###########################################################################
+root@acc:/home/acc-06/Public/gitrepo# git pull https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git --tag UATv0.60_19-01-2018
+From https://github.com/ldhgrp-digtial/lodhagroup-ind
+ * tag               UATv0.60_19-01-2018 -> FETCH_HEAD
+Updating d2373d3..a0083ca
+Fast-forward
+ public/assets/Lodha/css/style.css                      | 22829 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ resources/views/Lodha/career/current-opening.blade.php |    18 +-
+ resources/views/Lodha/project/project-price.blade.php  |     4 +-
+ 3 files changed, 22845 insertions(+), 6 deletions(-)
+ 
+ ###################################################################################################
+ transition 60-61
+ ############################################################################################3
+ UATv0.61_19-01-2018
+ 
+ 
+root@acc:/home/acc-06/Public/gitrepo# git commit -am "before 60-61 transition "HEAD detached from UATv0.59_18-01-2018
+nothing to commit, working directory clean
+root@acc:/home/acc-06/Public/gitrepo# git pull https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git --tag UATv0.61_19-01-2018
+From https://github.com/ldhgrp-digtial/lodhagroup-ind
+ * tag               UATv0.61_19-01-2018 -> FETCH_HEAD
+Updating a0083ca..bf51313
+Fast-forward
+ public/assets/Lodha/js/script.js | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+root@acc:/home/acc-06/Public/gitrepo# git checkout UATv0.61_19-01-2018
+HEAD is now at bf51313... Script file uploaded
+
+###################################################################################################
+transition 61-63 (62 is not present)
+########################################################################################################
+UATv0.63_22-01-2018
+
+root@acc:/home/acc-06/Public/gitrepo# git commit -am "before 61-62 transition "HEAD detached from UATv0.59_18-01-2018
+nothing to commit, working directory clean
+root@acc:/home/acc-06/Public/gitrepo# git pull https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git --tag UATv0.63_22-01-2018
+From https://github.com/ldhgrp-digtial/lodhagroup-ind
+ * tag               UATv0.63_22-01-2018 -> FETCH_HEAD
+Updating bf51313..0dc8cf1
+Fast-forward
+ resources/views/Lodha/cluster/cluster-price.blade.php |    4 +-
+ resources/views/Lodha/project/project-price.blade.php |    1 +
+ sitemap.xml                                           | 3928 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 3931 insertions(+), 2 deletions(-)
+ create mode 100644 sitemap.xml
+root@acc:/home/acc-06/Public/gitrepo# git checkout UATv0.63_22-01-2018
+HEAD is now at 0dc8cf1... Bedroom to Typology change
+
+#####################################################################################################33
+transition 63-64
+######################################################################################################
+UATv0.64_22-01-2018
+root@acc:/home/acc-06/Public/gitrepo# git commit -am "before 63-64 transition "HEAD detached from UATv0.59_18-01-2018
+nothing to commit, working directory clean
+root@acc:/home/acc-06/Public/gitrepo# git pull https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git --tag UATv0.64_22-01-2018
+From https://github.com/ldhgrp-digtial/lodhagroup-ind
+ * tag               UATv0.64_22-01-2018 -> FETCH_HEAD
+Updating 0dc8cf1..3731543
+Fast-forward
+ resources/views/Lodha/career/current-opening.blade.php | 1 +
+ 1 file changed, 1 insertion(+)
+root@acc:/home/acc-06/Public/gitrepo# git checkout UATv0.64_22-01-2018
+HEAD is now at 3731543... Current Opening Changes
+
+##########################################################################################################
+transition 64-65
+##########################################################################################################
+UATv0.65_23-01-2018
+
+root@acc:/home/acc-06/Public/gitrepo# git commit -am "before 64-65 transition "HEAD detached from UATv0.59_18-01-2018
+
+It took 2.13 seconds to enumerate untracked files. 'status -uno'
+may speed it up, but you have to be careful not to forget to add
+new files yourself (see 'git help status').
+nothing to commit, working directory clean
+root@acc:/home/acc-06/Public/gitrepo# git pull https://ldhgrp-digtial:lodhagroup1@github.com/ldhgrp-digtial/lodhagroup-ind.git --tag UATv0.65_23-01-2018
+From https://github.com/ldhgrp-digtial/lodhagroup-ind
+ * tag               UATv0.65_23-01-2018 -> FETCH_HEAD
+Updating 3731543..0766f50
+Fast-forward
+ resources/views/Lodha/career/campus-recruitments.blade.php | 42 +++++++++++++++++++++++++++---------------
+ 1 file changed, 27 insertions(+), 15 deletions(-)
+root@acc:/home/acc-06/Public/gitrepo# vi resources/views/Lodha/career/campus-recruitments.blade.php
+root@acc:/home/acc-06/Public/gitrepo# git checkout UATv0.65_23-01-2018
+HEAD is now at 0766f50... Campus recruitment page changes
+#################################################################################################################3
+transition 65-66
+####################################################################################################
+
+
+
+
+
+ 
+
+
+
+
+
+	

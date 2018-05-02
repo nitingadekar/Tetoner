@@ -1,0 +1,32 @@
+name=`curl -s http://169.254.169.254/latest/meta-data/instance-id` && var=`aws autoscaling describe-auto-scaling-instances --instance-ids="$name" --region us-east-1 | grep Group | cut -c 37-` && asg=`echo $var | rev | cut -c 3- | rev | cut -c  2-` && echo $asg
+
+
+$ x="lkj"
+$ echo "${x%?}"
+lk
+
+
+
+
+sed 's/.$//'
+
+
+
+echo ljk | sed 's/.$//'
+
+
+
+
+
+23
+down vote
+A few options depending on the shell:
+
+POSIX: t=${t%?}
+Bourne: t=`expr " $t" : ' \(.*\).'`
+zsh/yash: t=${t[1,-2]}
+bash/zsh: t=${t:0:-1}
+ksh93/bash/zsh/mksh: t=${t:0:${#t}-1}
+ksh93/bash/zsh/mksh: t=${t/%?}
+ksh93: t=${t/~(E).$/}
+es: @ {t=$1} ~~ $t *?	

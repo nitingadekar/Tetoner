@@ -1,0 +1,202 @@
+Task: install java and spark and perform standlone task on spark
+how to create worker nodes
+how to get input from s3 bucket
+DAG
+RDD
+
+
+
+Intro and Conventions in Spark
+https://www.tutorialspoint.com/apache_spark/apache_spark_introduction.htm
+################################################
+Lifecycle in Spark
+#############################################
+Load data on Cluster
+Creare RDD
+Do transformation (Map Filter Flatmap Textfile ....)
+Perform Action 
+Create Data Frames
+Perform Queries on Dataframe
+Run SQl on Data Frames
+
+
+
+############################
+RDD Resilient Distributed Datasets
+#############################3
+Transformation are generated as DAG Directed Acyclic Graph
+Dag can be cpmputed during failure
+#########################################################################3
+
+
+######################################################
+intsallation
+#############################################################3
+#download URL: https://www.apache.org/dyn/closer.lua/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz
+
+sudo su
+cd /root
+wget http://www-us.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz
+mkdir /usr/share/spark
+mv spark-2.3.0-bin-hadoop2.7.tgz /usr/share/spark
+cd /usr/share/spark
+ls
+tar -xf spark-2.3.0-bin-hadoop2.7.tgz
+pwd # /usr/local/spark/spark-2.3.0-bin-hadoop2.7
+
+ls #bin  conf  data  examples  jars  kubernetes  LICENSE  licenses  NOTICE  python  R  README.md  RELEASE  sbin  yarn
+
+
+#download jdk8+ and install 
+#http://www.oracle.com/technetwork/articles/javase/jdk-netbeans-jsp-142931.html
+
+wget http://download.oracle.com/otn-pub/java/jdk-nb/8u161-8.2/jdk-8u161-nb-8_2-linux-i586.sh
+sh  jdk-8u161-nb-8_2-linux-i586.sh #follow process till finish and note down the home directory for java home
+JAVA_HOME=/usr/local/jdk1.8.0_161
+echo $JAVA_HOME
+export JAVA_HOME
+
+###RUnning the example shell
+
+./bin/run-example SparkPi 10
+##https://spark.apache.org/docs/latest/submitting-applications.html##commandsin spark
+
+./bin/spark-shell --master local[1]  ##run scala shell with master and single thread or  worker on local node ideally
+
+#https://spark.apache.org/docs/latest/submitting-applications.html#master-urls#######for multinode cluster 
+************************host the url before shell prompt spark to get UI of spark dashboard***************8
+http://192.168.225.54:4040
+************************************************************************************************************
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""'
+https://spark.apache.org/docs/latest/quick-start.html
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+##basic operations
+
+scala> val textFile = spark.read.textFile("README.md")
+scala> textFile.count() // Number of items in this Dataset
+scala> textFile.first() // First item in this Dataset
+scala> val linesWithSpark = textFile.filter(line => line.contains("Spark"))
+scala> textFile.filter(line => line.contains("Spark")).count() // How many lines contain "Spark"?
+
+##More on Dataset Operations
+scala> textFile.map(line => line.split(" ").size).reduce((a, b) => if (a > b) a else b)
+scala> import java.lang.Math
+scala> textFile.map(line => line.split(" ").size).reduce((a, b) => Math.max(a, b))
+scala> val wordCounts = textFile.flatMap(line => line.split(" ")).groupByKey(identity).count()
+scala> wordCounts.collect()
+
+##Caching
+scala> linesWithSpark.cache()
+scala> linesWithSpark.count()
+scala> linesWithSpark.count()
+
+##Self-Contained Applications
+
+
+/* SimpleApp.scala */
+import org.apache.spark.sql.SparkSession
+object SimpleApp {
+  def main(args: Array[String]) {
+    val logFile = "YOUR_SPARK_HOME/README.md" // Should be some file on your system
+    val spark = SparkSession.builder.appName("Simple Application").getOrCreate()
+    val logData = spark.read.textFile(logFile).cache()
+    val numAs = logData.filter(line => line.contains("a")).count()
+    val numBs = logData.filter(line => line.contains("b")).count()
+    println(s"Lines with a: $numAs, Lines with b: $numBs")
+    spark.stop()
+  }
+}
+
+##errror#
+Caused by: org.apache.derby.iapi.error.StandardException: The database directory '/usr/local/spark/spark-2.3.0-bin-hadoop2.7/metastore_db' exists. However, it does not contain the expected 'service.properties' file. Perhaps Derby was brought down in the middle of creating this database. You may want to delete this directory and try creating the database again.
+#########################
+
+
+#############################################################################
+#Datasets from any storage suported by hadoop:
+#HDFS, Cassandra, Hbase, s3, etc.
+
+#Launch spark shell
+./bin/spark-shell --master local[1]
+#Create data
+val data = 1to 10000
+#Parallaelize the data.(Create RDD)
+val distData=sc.parallelize(data)
+#Perform additional transformation or invoke an action on it.
+distData.filter
+#or create other RDD from already created RDD.
+
+
+
+##################################################3
+
+RDD Operations.
+1: loading file.
+val lines  = sc.textFile{""hdfs://data.txt"}
+
+2: apply transformation
+val lineLengths = lines.map (s => s.length)
+
+3: envoking actions
+val totalLengths = lineLengths.reduce((a,b) => a+b)
+
+4: Mapreduce example:
+val wordCounts = textfile.flatmap(line => line.split (" ")
+.map(word
+
+############################################################################
+
+Direct Acyclic Graph DAG. ########https://youtu.be/1WzN7c35cUw
+
+#Viewing DAG
+linesLength.toDebugString
+#Sample DAG
+
+
+
+############################################################################################
+
+#################Additional key features of Spark include:#################################3
+
+Currently provides APIs in Scala, Java, and Python, with support for other languages (such as R) on the way
+
+Integrates well with the Hadoop ecosystem and data sources (HDFS, Amazon S3, Hive, HBase, Cassandra, etc.)
+
+Can run on clusters managed by Hadoop YARN or Apache Mesos, and can also run standalone
+
+
+#################################3spark - ec2################################################3
+
+LAST EDIT
+
+For anyone having this issue, the answer is simpler: here.
+
+EDIT 2
+
+I realized after first edit that it is slightly more convoluted, so here's a new edit about for anyone that might find it useful in the future.
+
+The issue is that Spark does no longer provide the ec2 directory as part of the official distribution. If you're used to spinning up your standalone clusters this way it is an issue.
+
+The solution is simple:
+
+Download the official ec2 directory as detailed in the Spark 2.0.0 documentation.
+If you just copy the dir to your Spark 2.0.0 and run the spark-ec2 executable to mimic the way things worked in Spark 1.*, you will be able to spin up your cluster as usual. But when you ssh into it you'll realize that none of the binaries are there anymore.
+So, once you spin up your cluster (as you normally would with the spark-ec2 you downloaded in step 1), you'll have to rsync your local directory containing Spark 2.0.0 into the master of your newly created cluster. Once this is done, you can spark-submit jobs as you normally do.
+Really simple but it seems to me the Spark docs could be clear about this for all of us normies.
+
+EDIT: This was in fact the right thing to do. For anyone having the same question: download the ec2 dir from AMPLab like Spark suggests, put this folder inside your local Spark-2.0.0 dir, and fire-up scripts as usual. Apparently they only decoupled the directory for maintenance purposes, but the logic is still the same. Would be nice to have a few words about it in the Spark docs.
+
+I tried the following: cloned the spark-ec2-branch-1.6 directory from the AMPLab link into my spark-2.0.0 directory, and attempted to launch a cluster with the usual ./ec2/spark-ec2 command. Maybe that's what they want us to do?
+
+I'm launchng a small 16 node cluster. I can see it in the AWS dashboard but the terminal has been stuck printing the usual SSH error for the past... almost two hours.
+
+Warning: SSH connection error. (This could be temporary.)
+Host: ec2-54-165-25-18.compute-1.amazonaws.com
+SSH return code: 255
+SSH output: ssh: connect to host ec2-54-165-25-18.compute-1.amazonaws.com port 22: Connection refused
+
+Will update if I find anything useful.
+
+
+
+

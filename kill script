@@ -1,0 +1,45 @@
+
+
+ps -awux | grep sendmail | cut -c 10-15 >> pid
+for i in $(cat pid); do
+kill -9 $i
+done
+
+
+
+``
+""
+
+
+i=`ps -awux | grep sendmail | cut -c 10-15`
+
+while i=true; 
+do 
+kill -9 $i;
+done
+
+
+
+for i  in $(cat k); do 
+
+kill $i
+done
+
+
+
+1
+2
+3
+4
+5
+6
+6
+7
+
+
+cat file | cut -c 1 >> file2
+
+echo `date`$i
+
+
+

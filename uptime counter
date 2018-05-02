@@ -1,0 +1,5 @@
+while true;
+do 
+command=$(uptime | cut -d ' ' -f2);
+printf "\r ${command}";
+done

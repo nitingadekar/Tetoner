@@ -1,0 +1,7 @@
+####changing time zone of linux servers to IST####################
+date #current time zone
+cd /etc/
+rm -f localtime
+ln -s /usr/share/zoneinfo/Asia/Kolkata localtime
+date #new time zone
+

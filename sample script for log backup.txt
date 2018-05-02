@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#value=`df -h | grep "xvda1" | awk '{print $5}'| cut -c -2`
+value=70
+echo " disk storage is $value "
+
+
+#condition check
+if [ $value -gt 70 ] || [ $value -eq 70 ]; then
+
+
+#go to the directry
+cd /demolog
+
+
+#tar the log directory with date and timestamp and move it in new directory
+tar -cf "log$(date '+%y-%m-%d_%H%M%S').tar.gz"  /demolog/log && mv  "log$(date '+%y-%m-%d_%H%M%S').tar.gz" /demolog/xtract/ && echo "backed up /demolog/log/ in log$(date '+%y-%m-%d_%H%M%S').tar.gz"
+
+
+
+#delete old logs to free space
+
+rm -rf /demolog/log/app1/* && rm -rf /demolog/log/app2/*
+
+echo "old logs cleared"
+
+else
+echo "disk storage is below 70%"
+
+fi
+
+

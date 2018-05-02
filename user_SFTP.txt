@@ -1,0 +1,79 @@
+Replace <new-user> by name of new user
+Replace <path-to-new-user> by path to be given access to new user
+
+
+sudo su 
+useradd <new-user>
+su - <new-user>
+ssh-keygen -b 2048 -t rsa -f <new-user> -C <new-user>
+exit
+cd /home/<new-user>
+cp <new-user> /home/ec2-user/<new-user>
+su - <new-user>
+mkdir .ssh
+cp <new-user>.pub .ssh/<new-user>.pub
+cd .ssh
+cat >authorized_keys < <new-user>.pub
+chmod 0700 ~/.ssh
+chmod 0600 ~/.ssh/authorized_keys
+exit
+chown root:root /home/<new-user>
+chmod 0755 /home/<new-user>
+chmod 777 /home/ec2-user/<new-user>
+
+
+nano /etc/ssh/sshd_config
+
+add the following line 
+comment the Line Subsystem sftp /usr/libexec/openssh/sftp-server
+and add Subsystem sftp internal-sftp 
+
+
+#Subsystem sftp /usr/libexec/openssh/sftp-server
+Subsystem sftp internal-sftp
+
+add the following line at the end of the file
+
+Match User <new-user>
+    ChrootDirectory %h
+    ForceCommand internal-sftp
+    X11Forwarding no
+    AllowTCPForwarding no 
+
+service sshd restart
+
+mkdir -p /home/<new-user>/html
+mount --bind <path-to-new-user> /home/<new-user>/html
+chmod g+s /home/<new-user>/html
+chown -R <new-user>:www /home/<new-user>/html
+setfacl -d -m g::rwx /home/<new-user>/html
+sudo usermod -g www <new-user> 
+
+
+*your mounts to still be there when you reboot the server*
+
+nano /etc/fstab
+
+add the following line 
+<path-to-new-user>        /home/<new-user>/html       none        bind        0        0
+/var/www/html/dir1        /home/user1/html            none        bind        0        0
+*************************Permission Command*******************************
+
+sudo usermod -a -G www apache
+sudo chown -R apache /var/www
+sudo chgrp -R www /var/www
+sudo chmod 2775 /var/www
+sudo su 
+find /var/www -type f -exec chmod 0664 {} +
+find /var/www -type d -exec chmod 2775 {} +
+sudo service httpd restart
+sudo chkconfig httpd on
+sudo chkconfig mysqld on
+sudo service httpd restart
+sudo service mysqld restart
+
+
+
+***************For Unmount******************
+umount /home/<new-user>/html
+

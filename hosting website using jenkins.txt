@@ -1,0 +1,57 @@
+######Deploying a website from github to ec2 server using jenkins platform
+**********isntall jenkins on ec2-server***********
+#launch a ec2 instance 
+
+#open terminal
+
+
+sudo yum install wget -y
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+ 
+sudo yum install jenkins -y
+
+sudo systemctl start jenkins 
+
+sudo systemctl enable jenkins 
+
+# open browser and host the localhost:8080 or (public ip):8080
+
+# start using jenkins
+
+# unlock the jenkins by entering the password sstored in /var/lib/jenkins/secret.key or /var/lib/jenkins/secrets/initialAdminPassword
+cat /var/lib/jenkins/secret.key
+
+#create a admin user for first
+
+#create additional users if necessary from manage jenkins -> manage users 
+
+#go to dashboard --> new item -->  create new job free style job
+
+#configure the job as per requiremet
+
+***********host the github code on apache ***************
+
+###configure the job as follow
+
+#in source code management -> git -> add the https link of git repo (find in github.com/repo -> clone download) 
+#in build -> execute shell -> cp -r /var/lib/jenkins/workspace/(job name)/* /var/www/html/
+
+#save the configuration
+
+#manage permissions
+
+usermod -G wheel jenkins
+
+setfacl -m u:jenkins:7 /var/www/
+
+setfacl -m u:jenkins:7 /var/www/html/
+
+#now build the job
+
+#if status is success then host the website
+#if not , check the console output of the built and diagnosis the error
+
+****note: the source code is in github repositry and the 
